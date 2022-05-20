@@ -12,25 +12,39 @@ if(isset($_POST['sign_up'])){
         exit();
     }
 
+    // store data in variables
     $name = htmlentities(mysqli_real_escape_string($connect, $_POST['user_name'])); 
     $country = htmlentities(mysqli_real_escape_string($connect, $_POST['user_country'])); 
     $email = htmlentities(mysqli_real_escape_string($connect, $_POST['user_email'])); 
-    $pass = htmlentities(mysqli_real_escape_string($connect, $matchpass)); 
+    $password = htmlentities(mysqli_real_escape_string($connect, $matchpass)); 
     $avatar = "images/ava.png";
     
-    $insert = "insert into users (user_name, user_email, user_password, user_country, user_avatar) values ('$name', '$email', '$pass', '$country', '$avatar') ";
 
+    // check if email exist
+    $check_email_query = "SELECT * FROM users WHERE user_email = '$email'";
+    $check_email = mysqli_query($connect, $check_email_query);
+    $check_email_result = mysqli_num_rows($check_email);
+
+    if($check_email_result != NULL) {
+        echo "<script>alert('Email is already exist, please try again!')</script>";
+        echo "<script>window.open('signup.php', '_self')</script>";
+        exit();
+    }
+
+    // save data into database
+    $insert = "INSERT INTO users (user_name, user_email, user_password, user_country, user_avatar) VALUES('$name', '$email', '$password', '$country', '$avatar') ";
+    
     $query = mysqli_query($connect, $insert);
 
     if($query) {
-        echo "<script>alert('Successfully')</script>";
+        echo "<script>alert('Congratulations $name, your account has been creates successfully')</script>";
+        echo "<script>window.open('login.php', '_self')</script>";
+    } else {
+        echo "<script>alert('Registration failed, please try again!";
         echo "<script>window.open('signup.php', '_self')</script>";
     }
 
 
 }
-
-
-
 
 ?>
