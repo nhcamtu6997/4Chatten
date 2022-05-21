@@ -63,6 +63,14 @@ body{
 	border: 1px solid #ccc;
 	border-radius: 5px;
 }
+.form form .select select{
+	height: 40px;
+	width: 100%;
+	font-size: 15px;
+	padding: 0 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
 .form form .image input{
 	font-size: 17px;
 }

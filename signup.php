@@ -19,7 +19,7 @@
 							<label>Username</label>
 							<input type="text" name="user_name" placeholder="Enter your username" autocomplete="off" required>
 						</div>
-						<div class="field input">
+						<div class="field select">
 							<label>Homeland</label>
 							<select name="user_country" required>
 								<option disabled="">Select a Country</option>
