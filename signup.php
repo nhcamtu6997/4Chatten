@@ -13,7 +13,7 @@
 		<div class="wrapper">
 			<section class="form signup">
 				<header>4Chatten App</header>
-				<form action="" method="post">
+				<form action="" method="post" enctype="multipart/form-data">
 					<div class="nameAndCountry-details">
 						<div class="field input">
 							<label>Username</label>
@@ -65,10 +65,10 @@
 								<label>Confirm Password</label>
 								<input type="password" name="user_password2" placeholder="Confirm your password" autocomplete="off" required>
 							</div>
-							<!-- <div class="field image">
+							<div class="field image">
 								<label>Upload Profile Picture</label>
-								<input type="file">
-							</div> -->
+								<input type="file" name="upload_ava" size="60">
+							</div>
 							<div class="field registerButton">
 								<input type="submit" name="sign_up" value="Register">
 							</div>

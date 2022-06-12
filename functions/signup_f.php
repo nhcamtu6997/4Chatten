@@ -17,7 +17,7 @@ if(isset($_POST['sign_up'])){
     $country = htmlentities(mysqli_real_escape_string($connect, $_POST['user_country'])); 
     $email = htmlentities(mysqli_real_escape_string($connect, $_POST['user_email'])); 
     $password = htmlentities(mysqli_real_escape_string($connect, $matchpass)); 
-    $avatar = "images/ava.png";
+    
     
 
     // check if email exist
@@ -32,19 +32,46 @@ if(isset($_POST['sign_up'])){
     }
 
     // save data into database
-    $insert = "INSERT INTO users (user_name, user_email, user_password, user_country, user_avatar) VALUES('$name', '$email', '$password', '$country', '$avatar') ";
-    
-    $query = mysqli_query($connect, $insert);
+    if(isset($_FILES["upload_ava"]["name"]) AND !empty($_FILES["upload_ava"]["name"])) {
+        $avatar_file = "uploads/" . basename($_FILES["upload_ava"]["name"]);
+        $avatar_tmp = "uploads/" . basename($_FILES["upload_ava"]["tmp_name"]);
+        $random_number = rand(1,100);
+        $imageFileType = strtolower(pathinfo($avatar_file,PATHINFO_EXTENSION));
 
-    if($query) {
-        echo "<script>alert('Congratulations $name, your account has been creates successfully')</script>";
-        echo "<script>window.open('login.php', '_self')</script>";
+        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+            echo "<script>alert('Sorry, only JPG, JPEG and PNG files are allowed!')</script>";
+            echo "<script>window.open('signup.php', '_self')</script>";
+        } else {
+            move_uploaded_file($avatar_tmp, "$random_number.$avatar_file");
+
+            $insert = "INSERT INTO users (user_name, user_email, user_password, user_country, user_avatar) VALUES('$name', '$email', '$password', '$country', '$random_number.$avatar_file') ";
+
+            $query = mysqli_query($connect, $insert);
+
+            if ($query) {
+                echo "<script>alert('Congratulations $name, your account has been creates successfully')</script>";
+                echo "<script>window.open('index.php', '_self')</script>";
+            } else {
+                echo "<script>alert('Registration failed, please try again!')</script>";
+                echo "<script>window.open('signup.php', '_self')</script>";
+            }
+        }
     } else {
-        echo "<script>alert('Registration failed, please try again!";
-        echo "<script>window.open('signup.php', '_self')</script>";
-    }
+
+        // use default avatar
+        $avatar = "images/ava.png";
+        $insert = "INSERT INTO users (user_name, user_email, user_password, user_country, user_avatar) VALUES('$name', '$email', '$password', '$country', '$avatar') ";
+
+        $query = mysqli_query($connect, $insert);
+
+        if ($query) {
+            echo "<script>alert('Congratulations $name, your account has been creates successfully')</script>";
+            echo "<script>window.open('index.php', '_self')</script>";
+        } else {
+            echo "<script>alert('Registration failed, please try again!')</script>";
+            echo "<script>window.open('signup.php', '_self')</script>";
+        }
+    } 
 
 
 }
-
-?>
