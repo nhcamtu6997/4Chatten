@@ -9,10 +9,12 @@ body{
 .wrapper{
 	background: #F5DEC1;
 	max-width: 900px;
+	height: 750px;
 	border-radius: 16px;
 	box-shadow: 0 0 128px 0 rgba(0,0,0,0.1),
 		    0 32px 64px -48px rgba(0,0,0,0.5);
 	display: flex;
+	position: relative;
 }
 .form{
 	padding:25px 30px;
@@ -110,7 +112,14 @@ body{
 	padding: 25px 30px;
 	flex: 2;
 }
-.friends header,
+.friends header{
+	display: flex;
+	align-items: center;
+	padding-bottom: 20px;
+	justify-content: space-between;
+	border-bottom: 1px solid #563C26;
+}
+
 .friendslist a{
 	display: flex;
 	align-items: center;
@@ -120,12 +129,14 @@ body{
 }
 .friends .FriendlistBottom{
 	margin-top: 120px;
+    	position: absolute;
+    	bottom: 25;
 }
 .wrapper img{
 	object-fit:cover;
 	border-radius: 50%;
 }
-:is(.friends, .friendslist, .chat) .content{
+:is(.friends, .friendslist, .chat, .addFriend) .content{
 	display: flex;
 	align-items: center;
 }
@@ -202,7 +213,7 @@ body{
 	align-items: center;
 	padding-bottom: 20px;
 	justify-content: space-between;
-	border-bottom: 1px solid #e6e6e6;
+	border-bottom: 1px solid #563C26;
 }
 .chat header .logout{
 	color: #F5DEC1;
@@ -231,7 +242,7 @@ body{
 		    inset 0 -32px 32px -32px rgb(0 0 0 / 5%);
 }
 .chatfenster .chat{
-	margin: 15px 0
+	margin: 20px 0;
 }
 .chatfenster .chat p{
 	word-wrap: break-word;
@@ -247,6 +258,7 @@ body{
 	max-width: calc(100% - 130px);
 }
 .chat-senden .details p{
+	padding: 10px;
 	background: #F5DEC1;
 	color: #563C26;
 	border-radius: 18px 18px 0 18px;
@@ -259,6 +271,7 @@ body{
 	max-width: calc(100% - 130px);
 }
 .chat-empfangen .details p{
+	padding: 10px;
 	background: #563C26;
 	color: #F5DEC1;
 	border-radius: 18px 18px 18px 0px;
@@ -284,7 +297,7 @@ body{
 	align-items: center;
 	padding-bottom: 20px;
 	justify-content: space-between;
-	border-bottom: 1px solid #e6e6e6;
+	border-bottom: 1px solid #563C26;
 }
 .addFriend .addFriend-area{
 	padding: 30px 0px;
@@ -329,4 +342,31 @@ body{
 .addFriend header span{
 	font-size: 17px;
 	font-weight: 500;
+}
+.homeland{
+	padding: 25px 30px;
+}
+.homeland header{
+	display: flex;
+	align-items: center;
+	padding-bottom: 20px;
+	justify-content: space-between;
+	border-bottom: 1px solid #563C26;
+}
+.homeland header .content img{
+	height: 45px;
+	width: 45px;
+	margin: 0 15px;
+}
+.homeland header span{
+	font-size: 17px;
+	font-weight: 500;
+}
+.homeland header .logout{
+	color: #F5DEC1;
+	font-size: 17px;
+	padding: 7px 15px;
+	background: #563C26;
+	border-radius: 5px;
+	cursor: pointer; 
 }

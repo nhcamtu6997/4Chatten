@@ -15,7 +15,7 @@ if(isset($_POST['log_in'])) {
     $check_user_result = mysqli_num_rows($check_user);
 
     if($check_user_result == 1) {
-        $_SESSION['user_email'] = $email;
+        $_SESSION['user_email'] = $email; 
 
         // update status online 
         mysqli_query($connect, "UPDATE users SET user_online = 1 WHERE user_email = '$email'");
@@ -35,5 +35,3 @@ if(isset($_POST['log_in'])) {
     }
 
 }
-
-?>
