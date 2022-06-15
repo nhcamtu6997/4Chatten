@@ -1,16 +1,6 @@
 <?php
 include("connection.php");
 
-$my_email = $_SESSION['user_email'];
-$my_email_query = "SELECT * FROM users WHERE user_email = '$my_email'";
-$run_email = mysqli_query($connect, $my_email_query);
-$row_email = mysqli_fetch_array($run_email);
-
-$my_id = $row_email['user_id'];
-$my_name = $row_email['user_name'];
-$my_ava =  $row_email['user_avatar'];
-$my_status = $row_email['user_online'];
-
 $all_friends = "SELECT * FROM friends WHERE user_one = '$my_id' OR user_two = '$my_id' ";
 $run_all_friends = mysqli_query($connect, $all_friends);
 

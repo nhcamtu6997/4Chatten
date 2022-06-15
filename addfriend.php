@@ -1,4 +1,11 @@
 <! DOCTYPE html>
+	<?php
+	session_start();
+	include("connection.php");
+	if (!isset($_SESSION['user_email'])) {
+		header("location: index.php");
+	}
+	?>
 	<html lang="en">
 
 	<head>

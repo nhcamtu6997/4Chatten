@@ -19,6 +19,9 @@
 
 	<body style="font-family: sans-serif">
 		<div class="wrapper">
+    <!--##########################################################
+		Left Side
+		##########################################################-->
 			<section class="friends">
 				<header>
 					<div class="content">
@@ -49,7 +52,14 @@
 					</div>
 
 					<!--Addfriend function-->
-					<a href="functions/addfriend.php" class="Addfriend" name="add_friend" type="submit">Add</a>
+					<form method="post">
+						<button class="Addfriend" name="add_friend">Add</button>
+					</form>
+					<?php
+					if (isset($_POST['add_friend'])) {
+						echo "<script>window.open('addfriend.php?id=$my_id', '_self')</script>";
+					}
+					?>
 				</header>
 
 				<div class="search">
@@ -69,13 +79,17 @@
 				</div>
 
 			</section>
+
+
+    <!--##########################################################
+		Right Side
+		##########################################################-->
 			<section class="chat">
 				<header>
-
 					<!--Info of friend, who is chatting with me-->
 					<div class="content">
 						<?php
-						if (isset($_GET['frd_id'])) {  // maybe in users table
+						if (isset($_GET['frd_id'])) {
 							global $connect;
 							$friend_id = $_GET['frd_id'];
 							$get_friend_query = "SELECT * FROM users WHERE user_id = '$friend_id' ";
@@ -86,26 +100,23 @@
 							$friend_email = $row_get_friend['user_email'];
 							$friend_ava = $row_get_friend['user_avatar'];
 							$friend_status = $row_get_friend['user_online'];
-						}
 
-						// $total_messages_query = "SELECT * FROM chats WHERE (msg_sender='$my_email' AND msg_receiver='$friend_email') OR (msg_sender='$friend_email' AND msg_receiver='$my_email')";
-						// $run_messages = mysqli_query($connect, $total_messages_query);
-						// $messages = mysqli_num_rows($run_messages);
-						?>
-
-						<img src="<?php echo "$friend_ava"; ?>" alt="">
-						<div class="details">
-							<form method="post">
-								<span>Friend<?php echo " $friend_name"; ?></span>
-								<?php
-								if ($friend_status == 1) {
-									echo "<p>Online</p>";
-								} else {
-									echo "<p>Offline</p>";
-								}
-								?>
+							echo "
+							<img src= $friend_ava alt='' height='45' width='45'>
+							<div class='details'>
+							<form method='post'>
+								<span>Friend: $friend_name</span>";
+							if ($friend_status == 1) {
+								echo "<p>Online</p>";
+							} else {
+								echo "<p>Offline</p>";
+							}
+							"
 							</form>
-						</div>
+							</div>
+							";
+						}
+						?>
 					</div>
 
 					<!--Logout function-->
@@ -125,59 +136,40 @@
 				<div class="chatfenster">
 					<dt>
 						<?php
-						$sel_msg = "SELECT * FROM chats WHERE (msg_sender='$my_email' AND msg_receiver='$friend_email') OR (msg_sender='$friend_email' AND msg_receiver='$my_email') ORDER by 1 ASC";
-						$run_sel_msg = mysqli_query($connect, $sel_msg);
-
-						while ($row_msg = mysqli_fetch_array($run_sel_msg)) {
-							$msg_sender = $row_msg['msg_sender'];
-							$msg_receiver = $row_msg['msg_receiver'];
-							$msg_content = $row_msg['msg_content'];
-							$msg_date = $row_msg['msg_date'];
-
-							if ($msg_sender == $my_email and $msg_receiver == $friend_email) {
-								echo "
-								<dl>
-									<div class='chat-senden'>
-										<div class='details'>
-										<span><small>$msg_date</small></span>
-										<p>$msg_content</p>
-										</div>
-									</div>
-								</dl>
-							";
-							}
-							if ($msg_sender == $friend_email and $msg_receiver == $my_email) {
-								echo "
-								<dl>
-									<div class='chat-empfangen'>
-										<div class='details'>
-										<span><small>$msg_date</small></span>
-										<p>$msg_content</p>
-										</div>
-									</div>
-								</dl>
-							";
-							}
+						if (isset($_GET['frd_id'])) {
+							include("functions/show_chat.php");
+						} else {
+							echo "Select a conversation to start!";
 						}
 						?>
 
 					</dt>
-
 				</div>
 
 				<!--Send a message-->
-				<form method="post" class="typing-area">
-					<input autocomplete="off" type="text" name="msg_text" placeholder="Type a message here...">
-					<button name="msg_submit">Senden</button>
-				</form>
 				<?php
-				if (isset($_POST['msg_submit'])) {
-					$msg = htmlentities($_POST['msg_text']);
-					$insert_query = "INSERT INTO chats(msg_sender, msg_receiver, msg_content, msg_date) values('$my_email', '$friend_email', '$msg', NOW())";
-					$run_insert_query = mysqli_query($connect, $insert_query);
+				if (isset($_GET['frd_id'])) {
+					echo "
+    					<form method='post' class='typing-area'>
+        					<input autocomplete='off' type='text' name='msg_text' placeholder='Type a message here...'>
+        					<button name='msg_submit'>Send</button>
+    					</form>
+					";
+
+					if (isset($_POST['msg_submit'])) {
+						$msg = htmlentities($_POST['msg_text']);
+
+						if (!empty($msg)) {
+							$insert_query = "INSERT INTO chats(msg_sender, msg_receiver, msg_content, msg_date) values('$my_email', '$friend_email', '$msg', NOW())";
+							$run_insert_query = mysqli_query($connect, $insert_query);
+							echo "<script>window.open('homechat.php?frd_id=$friend_id', '_self')</script>";
+						}
+					}
 				}
 				?>
 			</section>
+
+
 		</div>
 	</body>
 
