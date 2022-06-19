@@ -8,7 +8,7 @@ body{
 	
 .wrapper{
 	background: #F5DEC1;
-	max-width: 900px;
+	width: 820px;
 	height: 750px;
 	border-radius: 16px;
 	box-shadow: 0 0 128px 0 rgba(0,0,0,0.1),
@@ -24,7 +24,7 @@ body{
 	font-weight: 600;
 	color: #563C26;
 	padding-bottom: 10px;
-	border-bottom: 1px solid #e6e6e6
+	text-align: center;
 }
 .form form{
 	margin: 20px 0;
@@ -110,7 +110,7 @@ body{
 }
 .friends{
 	padding: 25px 30px;
-	flex: 2;
+	width: 295px;
 }
 .friends header{
 	display: flex;
@@ -120,13 +120,6 @@ body{
 	border-bottom: 1px solid #563C26;
 }
 
-.friendslist a{
-	display: flex;
-	align-items: center;
-	padding-bottom: 20px;
-	justify-content: space-between;
-	border-bottom: 1px solid #e6e6e6;
-}
 .friends .FriendlistBottom{
 	margin-top: 120px;
     	position: absolute;
@@ -136,17 +129,23 @@ body{
 	object-fit:cover;
 	border-radius: 50%;
 }
-:is(.friends, .friendslist, .chat, .addFriend) .content{
+:is(.friends, .friendslist, .chat, .addFriend header, .homeland) .content{
 	display: flex;
-	align-items: center;
+	margin-bottom: 15px;
 }
+
 .friends header .content img{
-	height: 50px;
-	width: 50px;
+	height: 70px;
+	width: 70px;
 }
-:is(.friends, .friendslist, .chat, .addFriend) .details{
+.friendslist .content img {
+	height: 45px;
+	width: 45px;
+	margin: 2 0 2 0;
+}
+:is(.friends, .chat header, .addFriend header, .homeland) .details{
 	color: #000;
-	margin-left: 15px;
+	margin: 3 0 0 10;
 }
 :is(.friends, .friendslist) .details span{
 	font-size: 18px;
@@ -155,12 +154,19 @@ body{
 }
 .friends header .Addfriend{
 	color: #F5DEC1;
+	height: 35px;
 	font-size: 17px;
-	padding: 7px 20px;
+	padding: 7px 15px;
 	background: #563C26;
 	border-radius: 5px;
 	cursor: pointer;
 	border: none;
+	position: absolute;
+    right: 530;
+	top: 50;
+}
+.friends header .Addfriend:hover {
+	background: #497E82;
 }
 .friends .search{
 	margin: 20px 0;
@@ -174,15 +180,15 @@ body{
 .friends .search input{
 	position: absolute;
 	height: 42px;
-	width: 195px;
-	border: 1px solid #ccc;
+	width: 212px;
+	border: none;
 	padding: 0 13px;
 	font-size: 16px;
-	border-radius: 5px;
+	border-radius: 5px 0px 0px 5px;
 }
 .friends .search button{
 	width: 47px;
-	height: 42px;
+	height: 41px;
 	border: none;
 	outline: none;
 	color: #F5DEC1;
@@ -192,43 +198,65 @@ body{
 	border-radius: 0 5px 5px 0;
 }
 .friendslist{
-	max-height: 350px;
+	max-height: 450px;
 	overflow-y: auto;
 }
 :is(.friendslist, .chatfenster)::-webkit-scrollbar{
 	width: 0px;
 }
+
+.friendslist .details {
+	color: #000;
+	margin: 10 0 0 10;
+}
+
+.friendslist .content:hover{
+	background-color: #FAF2E6;
+	border-radius: 5px;
+	border: none;
+}
+
 .friendslist a{
 	padding-right: 15px;
+	text-decoration: none;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	color: #000;
 }
+
 .friendslist a .content img{
 	height: 40px;
 	width: 40px;
 }
 .chat{
-	padding: 25px 30px;
-	flex: 1;
+	padding: 25px 30px;	
+	width: 500px;
 }
 .chat header{
 	display: flex;
 	align-items: center;
 	padding-bottom: 20px;
+	margin-bottom: 10px;
 	justify-content: space-between;
-	border-bottom: 1px solid #563C26;
 }
 .chat header .logout{
 	color: #F5DEC1;
+	height: 35px;
 	font-size: 17px;
 	padding: 7px 15px;
 	background: #563C26;
 	border-radius: 5px;
 	cursor: pointer;
 	border: none;
+	position: absolute;
+	right: 30;
+	top: 50;
 }
+
 .chat header .content img{
-	height: 45px;
-	width: 45px;
-	margin: 0 15px;
+	height: 60px;
+	width: 60px;
 }
 .chat header span{
 	font-size: 17px;
@@ -240,8 +268,6 @@ body{
 	background: #f7f7f7;
 	border-radius: 16px;
 	padding: 10px 30px 20px 30px;
-	box-shadow: inset 0 32px 32px rgb(0 0 0 / 5%),
-		    inset 0 -32px 32px -32px rgb(0 0 0 / 5%);
 }
 .chatfenster .chat{
 	margin: 20px 0;
@@ -264,6 +290,8 @@ body{
 	background: #F5DEC1;
 	color: #563C26;
 	border-radius: 18px 18px 0 18px;
+	margin-top: 5px;
+    margin-bottom: 0;
 }
 .chatfenster .chat-empfangen{
 	display: flex;
@@ -277,6 +305,8 @@ body{
 	background: #563C26;
 	color: #F5DEC1;
 	border-radius: 18px 18px 18px 0px;
+	margin-top: 5px;
+    margin-bottom: 0;
 }
 .chat .typing-area{
 	padding: 20px 0px;
@@ -285,94 +315,181 @@ body{
 }
 .typing-area input{
 	height: 45px;
-	width: 342px;
+	width: 380px;
 	font-size: 17px;
-	border: 1px solid #ccc;
 	padding: 0 13px;
-	border-radius: 5px
+	border: none;
+	border-radius: 5px 0px 0px 5px;
 }
 .addFriend{
-	padding: 25px 30px;
+	padding: 30px;
 }
 .addFriend header{
 	display: flex;
 	align-items: center;
-	padding-bottom: 20px;
-	justify-content: space-between;
+	justify-content: center;
 	border-bottom: 1px solid #563C26;
+}
+
+.addFriend header .backIcontoChat {
+	text-decoration: none;
+	position: absolute;
+	left: 30;
+	color: #563C26;
+}
+
+.addFriend header .backIcontoChat:hover{
+	color: #497E82;
 }
 .addFriend .addFriend-area{
 	padding: 30px 0px;
 	display: flex;
 	justify-content: space-between;
 }
+
 .addFriend-area input{
-	margin-top: 180px;
+	margin-top: 80px;
 	height: 45px;
 	width: 343px;
 	font-size: 17px;
-	border: 1px solid #ccc;
 	padding: 0 13px;
-	border-radius: 5px;
+	border-radius: 5px 0 0 5px;
 	border: none;
 }
 .typing-area button{
 	width: 60px;
+	height: 45px;
 	background: #563C26;
 	color: #F5DEC1;
-	font-size: 17px;
+	font-size: 15px;
 	cursor: pointer;
-	border-radius: 5px;
+	border-radius: 0 5px 5px 0;
 	border: none;
 }
+
+.typing-area button:hover{
+	background-color: #497E82;
+}
+
 .addFriend-area button{
-	margin-top: 180px;
+	margin-top: 80px;
 	width: 60px;
 	background: #563C26;
 	color: #F5DEC1;
 	cursor: pointer;
+	border: none;
+	border-radius: 0 5px 5px 0;
 }
 .addFriend header .logout{
 	color: #F5DEC1;
+	height: 35px;
 	font-size: 17px;
 	padding: 7px 15px;
 	background: #563C26;
 	border-radius: 5px;
 	cursor: pointer;
+	border: none;
+	position: absolute;
+	right: 30;
+	top: 50;
 }
 .addFriend header .content img{
-	height: 45px;
-	width: 45px;
-	margin: 0 15px;
+	height: 60px;
+	width: 60px;
 }
 .addFriend header span{
 	font-size: 17px;
 	font-weight: 500;
 }
 .homeland{
+	height: 800px;
+	width: 400px;
 	padding: 25px 30px;
 }
 .homeland header{
 	display: flex;
 	align-items: center;
-	padding-bottom: 20px;
-	justify-content: space-between;
 	border-bottom: 1px solid #563C26;
+	justify-content: center;
 }
+
 .homeland header .content img{
-	height: 45px;
-	width: 45px;
-	margin: 0 15px;
+	height: 60px;
+	width: 60px;
 }
+
 .homeland header span{
 	font-size: 17px;
 	font-weight: 500;
 }
+
 .homeland header .logout{
+	color: #F5DEC1;
+    height: 35px;
+    font-size: 17px;
+    padding: 7px 15px;
+    background: #563C26;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    position: absolute;
+    right: 30;
+    top: 50;
+}
+
+.homeland header .backIcontoChat {
+	text-decoration: none;
+	position: absolute;
+	left: 30;
+	color: #563C26;
+}
+
+.homeland header .backIcontoChat:hover{
+	color: #497E82;
+}
+
+.homelandProfiles .content{
+	margin: 0 15px;
+	justify-content: center;
+	align-items: center;
+	margin-top: 150px;
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-bottom: 10px;
+	display: flex;
+	
+}
+.homelandProfiles .content img{
+	height: 200px;
+	width: 200px;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+.homelandProfiles .nextButton button{
 	color: #F5DEC1;
 	font-size: 17px;
 	padding: 7px 15px;
 	background: #563C26;
 	border-radius: 5px;
 	cursor: pointer; 
+}
+.homelandProfiles .backButton button{
+	color: #F5DEC1;
+	font-size: 17px;
+	padding: 7px 15px;
+	background: #563C26;
+	border-radius: 5px;
+	cursor: pointer;
+}
+.homelandProfiles .homelandDetails{
+	text-align: center;
+	text-decoration: none;
+	cursor: pointer;
+}
+.homelandProfiles a.homelandDetails:hover{
+	font-weight:bold
+}
+
+:is(.chat header, .addFriend header, .homeland header) .logout:hover{
+	background-color: #497E82;
 }

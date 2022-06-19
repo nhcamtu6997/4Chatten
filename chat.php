@@ -2,6 +2,8 @@
 	<?php
 	session_start();
 	include("connection.php");
+	include("functions.php");
+
 	if (!isset($_SESSION['user_email'])) {
 		header("location: index.php");
 	}
@@ -19,13 +21,13 @@
 
 	<body style="font-family: sans-serif">
 		<div class="wrapper">
-    <!--##########################################################
+			<!--##########################################################
 		Left Side
 		##########################################################-->
 			<section class="friends">
 				<header>
+					<!--Infor of Me - The User-->
 					<div class="content">
-						<!--Infor of Me - The User-->
 						<?php
 						$my_email = $_SESSION['user_email'];
 						$my_email_query = "SELECT * FROM users WHERE user_email = '$my_email'";
@@ -36,19 +38,8 @@
 						$my_name = $row_email['user_name'];
 						$my_ava =  $row_email['user_avatar'];
 						$my_status = $row_email['user_online'];
+						printHeaderInfo($my_ava, $my_name, $my_status);
 						?>
-
-						<img src="<?php echo "$my_ava"; ?>" alt="">
-						<div class="details">
-							<span><?php echo " $my_name"; ?></span>
-							<?php
-							if ($my_status == 1) {
-								echo "<p>Online</p>";
-							} else {
-								echo "<p>Offline</p>";
-							}
-							?>
-						</div>
 					</div>
 
 					<!--Addfriend function-->
@@ -68,20 +59,27 @@
 					<button>&#x1F50D;</button>
 				</div>
 
+				<!--List friend to chat-->
 				<div class="friendslist">
-					<!--Get list friends function-->
 					<dt>
-						<?php include("functions/get_list_friend.php") ?>
+						<?php include("include/getListFriend.php") ?>
 					</dt>
 				</div>
-				<div class="FriendlistBottom">
-					<button>&#x1F30E;</button>
-				</div>
+
+				<!--Find friends in same country button-->
+				<form method="post">
+					<button class="FriendlistBottom" name="find_homies">&#x1F30E;</button>
+				</form>
+				<?php
+				if (isset($_POST['find_homies'])) {
+					echo "<script>window.open('findhomies.php?id=$my_id', '_self')</script>";
+				}
+				?>
 
 			</section>
 
 
-    <!--##########################################################
+			<!--##########################################################
 		Right Side
 		##########################################################-->
 			<section class="chat">
@@ -101,20 +99,9 @@
 							$friend_ava = $row_get_friend['user_avatar'];
 							$friend_status = $row_get_friend['user_online'];
 
-							echo "
-							<img src= $friend_ava alt='' height='45' width='45'>
-							<div class='details'>
-							<form method='post'>
-								<span>Friend: $friend_name</span>";
-							if ($friend_status == 1) {
-								echo "<p>Online</p>";
-							} else {
-								echo "<p>Offline</p>";
-							}
-							"
-							</form>
-							</div>
-							";
+							printHeaderInfo($friend_ava, $friend_name, $friend_status);
+						} else {
+							printHeaderInfo($my_ava, $my_name, $my_status);
 						}
 						?>
 					</div>
@@ -137,9 +124,9 @@
 					<dt>
 						<?php
 						if (isset($_GET['frd_id'])) {
-							include("functions/show_chat.php");
+							include("include/showChat.php");
 						} else {
-							echo "Select a conversation to start!";
+							echo "<div style='text-align: center; font-weight: bold; color: gray; margin-top: 220px;'>Select a person to start conversation!";
 						}
 						?>
 
@@ -160,16 +147,14 @@
 						$msg = htmlentities($_POST['msg_text']);
 
 						if (!empty($msg)) {
-							$insert_query = "INSERT INTO chats(msg_sender, msg_receiver, msg_content, msg_date) values('$my_email', '$friend_email', '$msg', NOW())";
+							$insert_query = "INSERT INTO chats(msg_sender, msg_receiver, msg_content, msg_date) VALUES('$my_id', '$friend_id', '$msg', NOW())";
 							$run_insert_query = mysqli_query($connect, $insert_query);
-							echo "<script>window.open('homechat.php?frd_id=$friend_id', '_self')</script>";
+							echo "<script>window.open('chat.php?frd_id=$friend_id', '_self')</script>";
 						}
 					}
 				}
 				?>
 			</section>
-
-
 		</div>
 	</body>
 

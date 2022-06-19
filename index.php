@@ -10,11 +10,11 @@
 	</head>
 
 	<body style="font-family: sans-serif">
-		<div class="wrapper">
-			<section class="form login">
+		<div class="wrapper" style="width: auto; height: auto;">
+			<section class="form login" style="display: table; margin: auto;">
 				<header>4Chatten App</header>
 				<form action="" method="post">
-					<?php include("functions/login_f.php"); ?>
+					<?php include("include/login.php"); ?>
 					<!-- <div class="error-txt">This is an error message!</div> -->
 					<div class="email-address">
 						<div class="field input">

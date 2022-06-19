@@ -1,4 +1,7 @@
 <! DOCTYPE html>
+	<?php
+	include("connection.php");
+	?>
 	<html lang="en">
 
 	<head>
@@ -10,8 +13,8 @@
 	</head>
 
 	<body style="font-family: sans-serif">
-		<div class="wrapper">
-			<section class="form signup">
+		<div class="wrapper" style="width: auto; height: auto;">
+			<section class="form signup" style="display: table; margin: auto;">
 				<header>4Chatten App</header>
 				<form action="" method="post" enctype="multipart/form-data">
 					<div class="nameAndCountry-details">
@@ -72,7 +75,7 @@
 							<div class="field registerButton">
 								<input type="submit" name="sign_up" value="Register">
 							</div>
-							<?php include("functions/signup_f.php"); ?>
+							<?php include("include/signup.php"); ?>
 				</form>
 				<div class="link">Already signed up? <a href="index.php">Login now</a></div>
 			</section>
