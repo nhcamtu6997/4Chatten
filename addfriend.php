@@ -3,7 +3,6 @@
 	session_start();
 	include("connection.php");
 	include("functions.php");
-	include("include/findFriend.php");
 
 	if (!isset($_SESSION['user_email'])) {
 		header("location: index.php");
@@ -58,7 +57,7 @@
 					<input type="text" name="txt_find" placeholder="Enter your friend's email address">
 					<button name="btn_find">Find friend</button>
 				</form>
-				<?php search_user($my_id); ?>
+				<?php searchUser($my_id); ?>
 			</section>
 		</div>
 	</body>

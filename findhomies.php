@@ -7,6 +7,7 @@
 	if (!isset($_SESSION['user_email'])) {
 		header("location: index.php");
 	}
+
 	?>
 	<html lang="en">
 
@@ -37,7 +38,9 @@
 						$my_id = $row_email['user_id'];
 						$my_name = $row_email['user_name'];
 						$my_ava =  $row_email['user_avatar'];
+						$my_country = $row_email['user_country'];
 						$my_status = $row_email['user_online'];
+
 						printHeaderInfo($my_ava, $my_name, $my_status);
 						?>
 					</div>
@@ -54,27 +57,37 @@
 					}
 					?>
 				</header>
+
 				<div class="homelandProfiles">
 					<div class="content">
 						<div class="backButton">
-							<button>&larr;</button>
+							<button onclick="scroll_left()">&larr;</button>
 						</div>
-						<a href="#">
-							<img src="ProfilePicture.jpg" alt="">
-						</a>
+
+						<div class="homies-list">
+							<?php include("include/getHomies.php"); ?>
+						</div>
+
 						<div class="nextButton">
-							<button>&rarr;</button>
+							<button onclick="scroll_right()">&rarr;</button>
 						</div>
 					</div>
-					<a href="#">
-						<div class="details">
-							<span>Homeland Person Name</span>
-							<p>Chat with this person from your homeland</p>
-						</div>
-					</a>
-					</form>
+
+				</div>
 			</section>
 		</div>
 	</body>
+
+	<script>
+		function scroll_left() {
+			var left = document.querySelector(".homies-list");
+			left.scrollBy(-261, 0);
+		}
+
+		function scroll_right() {
+			var right = document.querySelector(".homies-list");
+			right.scrollBy(261, 0);
+		}
+	</script>
 
 	</html>

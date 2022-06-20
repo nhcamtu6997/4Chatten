@@ -62,7 +62,7 @@
 				<!--List friend to chat-->
 				<div class="friendslist">
 					<dt>
-						<?php include("include/getListFriend.php") ?>
+						<?php include("include/getListFriend.php"); ?>
 					</dt>
 				</div>
 
@@ -75,6 +75,7 @@
 					echo "<script>window.open('findhomies.php?id=$my_id', '_self')</script>";
 				}
 				?>
+
 
 			</section>
 
