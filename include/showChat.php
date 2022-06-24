@@ -17,4 +17,7 @@ while ($row_msg = mysqli_fetch_array($run_sel_msg)) {
         $msg_person = "chat-empfangen";
         showMessages($msg_date, $msg_content, $msg_person);
     }
+
+    $update = "UPDATE chats SET msg_status = 1 WHERE msg_receiver = '$my_id' AND msg_sender='$friend_id' ";
+    mysqli_query($connect, $update);
 }

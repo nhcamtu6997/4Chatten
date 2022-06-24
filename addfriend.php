@@ -33,7 +33,7 @@
 			<section class="AddFriend">
 				<header>
 					<!--Back To Chat-->
-					<a href="chat.php?id=$my_id" class="backIcontoChat">&larr; To Chat</a>
+					<a href="chat.php" class="backIcontoChat">&#x25c0;</a>
 
 					<!--Infor of Me - The User-->
 					<div class="content">
@@ -41,17 +41,6 @@
 						printHeaderInfo($my_ava, $my_name, $my_status);
 						?>
 					</div>
-					<!--Logout function-->
-					<form method="post">
-						<button class="logout" name="log_out">Logout</button>
-					</form>
-					<?php
-					if (isset($_POST['log_out'])) {
-						$logout_update = mysqli_query($connect, "UPDATE users SET user_online = 0 WHERE user_email='$my_email'");
-						header("location: logout.php");
-						exit();
-					}
-					?>
 				</header>
 				<form class="addFriend-area">
 					<input type="text" name="txt_find" placeholder="Enter your friend's email address">

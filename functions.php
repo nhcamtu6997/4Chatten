@@ -1,10 +1,19 @@
 <?php
-function checkStatus($status)
+function checkOnlineStatus($status)
 {
     if ($status == 1) {
         echo "<p style='font-size: 12px; color: green; margin: 0px'>Online</p>";
     } else {
         echo "<p style='font-size: 12px; color: grey; margin: 0px'>Offline</p>";
+    }
+}
+
+function checkMsgStatus($msg_status, $frd_id, $frd_name)
+{
+    if ($msg_status == 1 or $msg_status == NULL) {
+        echo "<span><a href='chat.php?frd_id=$frd_id'>$frd_name</a></span>";
+    } else {
+        echo "<span style='font-weight: bold;'><a href='chat.php?frd_id=$frd_id'>$frd_name</a></span>";
     }
 }
 
@@ -14,14 +23,13 @@ function printHeaderInfo($ava, $name, $status)
 			<img src= $ava alt=''>
 			<div class='details' style='margin-top: 15px;'>
 				<span>$name</span>";
-    checkStatus($status);
-    "
-							
+    checkOnlineStatus($status);
+    "					
 			</div>
 		";
 }
 
-function getFriends($connect, $user)
+function getFriends($connect, $user, $last_msg_status)
 {
     $query = "SELECT * FROM users WHERE user_id = '$user'";
     $run = mysqli_query($connect, $query);
@@ -33,12 +41,11 @@ function getFriends($connect, $user)
 
         echo "
                 <dt>
-                
-                    <div class='content'>
+                    <div class='content friend-item'>
                         <img src=$frd_ava> 
-					    <div class='details'> 
-                        <span><a href='chat.php?frd_id=$frd_id'>$frd_name</a></span>";
-        checkStatus($frd_status);
+					    <div class='details'> ";
+        checkMsgStatus($last_msg_status, $frd_id, $frd_name);
+        checkOnlineStatus($frd_status);
         "                         
 					    </div>
                     </div>
@@ -62,6 +69,18 @@ function showMessages($msg_date, $msg_content, $msg_person)
 ";
 }
 
+function isBlockFriends($connect, $find_id, $my_id)
+{
+    $query = "SELECT * FROM blocks WHERE (user_one = '$find_id' AND user_two = '$my_id') OR (user_two = '$find_id' AND user_one = '$my_id') ";
+    $run = mysqli_query($connect, $query);
+    $row = mysqli_num_rows($run);
+    if ($row > 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 function isFriendAlready($connect, $find_id, $my_id)
 {
     $query = "SELECT * FROM friends WHERE (user_one = '$find_id' AND user_two = '$my_id') OR (user_two = '$find_id' AND user_one = '$my_id') ";
@@ -79,21 +98,20 @@ function searchUser($my_id)
     global $connect;
 
     if (isset($_GET['btn_find'])) {
-        $txt_find = htmlentities($_GET['txt_find']);
+        $txt_find = htmlentities(mysqli_real_escape_string($connect, $_GET['txt_find']));
 
-        if (!empty($txt_find)) {
-            $find_friend = "SELECT * FROM users WHERE user_email = '$txt_find'";
-            $run_find = mysqli_query($connect, $find_friend);
-            $row_find = mysqli_fetch_array($run_find);
+        $find_friend = "SELECT * FROM users WHERE user_email = '$txt_find'";
+        $run_find = mysqli_query($connect, $find_friend);
+        $row_find = mysqli_fetch_array($run_find);
 
-            if (mysqli_num_rows($run_find) > 0) {
-                $find_id = $row_find['user_id'];
-                $find_name = $row_find['user_name'];
-                $find_ava = $row_find['user_avatar'];
-                $find_country = $row_find['user_country'];
+        if (mysqli_num_rows($run_find) > 0) {
+            $find_id = $row_find['user_id'];
+            $find_name = $row_find['user_name'];
+            $find_ava = $row_find['user_avatar'];
+            $find_country = $row_find['user_country'];
 
-                if (!isFriendAlready($connect, $find_id, $my_id) && $my_id != $find_id) {
-                    echo "
+            if (!isFriendAlready($connect, $find_id, $my_id) && $my_id != $find_id && !isBlockFriends($connect, $find_id, $my_id)) {
+                echo "
                     <div class='content-tab'>
                         <img src=$find_ava> 
                         <div class='details-tab'> 
@@ -106,21 +124,18 @@ function searchUser($my_id)
                     </div>
                     ";
 
-                    if (isset($_POST['insert_Friend'])) {
+                if (isset($_POST['insert_Friend'])) {
 
-                        $insert_friend_query = "INSERT INTO friends(user_one, user_two) VALUES('$my_id', '$find_id')";
-                        mysqli_query($connect, $insert_friend_query);
+                    $insert_friend_query = "INSERT INTO friends(user_one, user_two) VALUES('$my_id', '$find_id')";
+                    mysqli_query($connect, $insert_friend_query);
 
-                        echo "<script>window.open('chat.php?frd_id=$find_id', '_self')</script>";
-                    }
-                } else {
-                    echo "<script>alert('You guys have already a conversation!'); </script>";
+                    echo "<script>window.open('chat.php?frd_id=$find_id', '_self')</script>";
                 }
             } else {
-                echo "<script>alert('No user was found :('); </script>";
+                echo "<script>alert('You should find another friend!'); </script>";
             }
         } else {
-            echo "<script>alert('Please enter email address to find your friend!'); </script>";
+            echo "<script>alert('No user was found :('); </script>";
         }
     }
 }

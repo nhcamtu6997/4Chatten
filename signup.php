@@ -20,7 +20,7 @@
 					<div class="nameAndCountry-details">
 						<div class="field input">
 							<label>Username</label>
-							<input type="text" name="user_name" placeholder="Enter your username" autocomplete="off" required>
+							<input type="text" name="user_name" placeholder="Max. 11 characters" autocomplete="off" required>
 						</div>
 						<div class="field select">
 							<label>Homeland</label>
