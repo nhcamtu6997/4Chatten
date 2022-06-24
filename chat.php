@@ -150,7 +150,7 @@
 						?>
 					</dt>
 					<script>
-						let to_bot = document.getElementById('chat-scroll');
+						let to_bot = document.getElementById("chat-scroll");
 						to_bot.scrollTop = to_bot.scrollHeight;
 					</script>
 				</div>
@@ -180,7 +180,7 @@
 		</div>
 	</body>
 	<script>
-		const search = () => {
+		function search() {
 			const searchbox = document.getElementById("search-item").value.toUpperCase();
 			const storeitems = document.getElementById("friends-list");
 			const item = document.querySelectorAll(".friend-item");

@@ -49,26 +49,3 @@ if (isset($_GET['insert'])) {
 
     echo "<script>window.open('chat.php?frd_id=$homie_id', '_self')</script>";
 }
-
-
-// while ($row = mysqli_fetch_array($run)) {
-//     $id = $row['user_id'];
-//     $ava = $row['user_avatar'];
-//     $name = $row['user_name'];
-//     $country = $row['user_country'];
-
-//     if (!isFriendAlready($connect, $id, $my_id)) {
-//         echo "
-//                 <div class='child'>
-//                     <img src=$ava alt=''>
-//                     <div class='details'>
-//                         <span>$name</span>
-//                         <p>$country</p>
-//                         <button><a href='findhomies.php?insert=$id'>Chat with $name</a></button>
-//                     </div>
-//                 </div>
-//             ";
-//     }
-// }
-
-// ORDER BY RAND() LIMIT 10;

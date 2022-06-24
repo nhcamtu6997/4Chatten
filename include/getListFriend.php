@@ -1,20 +1,5 @@
 <?php
 
-// $all_friends = "SELECT * FROM friends WHERE user_one = '$my_id' OR user_two = '$my_id' ";
-// $run_all_friends = mysqli_query($connect, $all_friends);
-
-// while ($row_friend = mysqli_fetch_array($run_all_friends)) {
-//     $user_one = $row_friend['user_one'];
-//     $user_two = $row_friend['user_two'];
-//     if ($user_one == $my_id) {
-//         getFriends($connect, $user_two);
-//     }
-//     if ($user_two == $my_id) {
-//         getFriends($connect, $user_one);
-//     }
-// }
-
-
 $all_friends = "SELECT f.MyID, c2.LastDate, CASE WHEN c3.msg_sender = '$my_id' THEN 1 ELSE c3.msg_status END AS MsgStatus FROM ( select c1.MyID, MAX(msg_date) as LastDate from ( SELECT CASE WHEN msg_sender = '$my_id' THEN msg_receiver ELSE msg_sender END AS MyID, msg_date FROM `chats` WHERE msg_receiver = '$my_id' or msg_sender = '$my_id' ) c1 group by c1.MyID ) c2 INNER join `chats` c3 on c2.LastDate = c3.msg_date right JOIN (SELECT CASE WHEN user_one = '$my_id' THEN user_two ELSE user_one END AS MyID FROM friends WHERE user_one = '$my_id' OR user_two = '$my_id' ) f on c2.MyID = f.MyID ORDER BY c2.LastDate DESC;";
 
 $run = mysqli_query($connect, $all_friends);
