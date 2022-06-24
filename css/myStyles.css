@@ -478,6 +478,11 @@ body{
     font-size: 17px;
 }
 
+.AddFriend .details-tab p {
+	color: #563C26;
+	padding: 2px 6px;
+}
+
 .homeland{
 	width: 400px;
 	padding: 30px;
