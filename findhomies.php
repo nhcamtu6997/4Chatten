@@ -8,6 +8,17 @@
 		header("location: index.php");
 	}
 
+	$my_email = $_SESSION['user_email'];
+	$my_email_query = "SELECT * FROM users WHERE user_email = '$my_email'";
+	$run_email = mysqli_query($connect, $my_email_query);
+	$row_email = mysqli_fetch_array($run_email);
+
+	$my_id = $row_email['user_id'];
+	$my_name = $row_email['user_name'];
+	$my_ava =  $row_email['user_avatar'];
+	$my_country = $row_email['user_country'];
+	$my_status = $row_email['user_online'];
+
 	?>
 	<html lang="en">
 
@@ -30,17 +41,6 @@
 					<!--Infor of Me - The User-->
 					<div class="content">
 						<?php
-						$my_email = $_SESSION['user_email'];
-						$my_email_query = "SELECT * FROM users WHERE user_email = '$my_email'";
-						$run_email = mysqli_query($connect, $my_email_query);
-						$row_email = mysqli_fetch_array($run_email);
-
-						$my_id = $row_email['user_id'];
-						$my_name = $row_email['user_name'];
-						$my_ava =  $row_email['user_avatar'];
-						$my_country = $row_email['user_country'];
-						$my_status = $row_email['user_online'];
-
 						printHeaderInfo($my_ava, $my_name, $my_status);
 						?>
 					</div>
