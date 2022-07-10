@@ -1,6 +1,6 @@
 <?php
 
-$sql = "SELECT * FROM users WHERE user_country = '$my_country' AND user_id != '$my_id' LIMIT 10; ";
+$sql = "SELECT * FROM users WHERE user_country = '$my_country' AND user_id != '$my_id';";
 $run = mysqli_query($connect, $sql);
 $items = array();
 
