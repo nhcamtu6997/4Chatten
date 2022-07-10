@@ -106,7 +106,6 @@
 
 							echo "
 							<button class='delete' onclick='return checkDelete()'><a href='chat.php?delete=$friend_id' >Delete</a></button>
-							
 							<button class='block' onclick='return checkBlock()'><a href='chat.php?block=$friend_id'>Block</a></button>";
 						} else {
 							printHeaderInfo($my_ava, $my_name, $my_status);
